@@ -21,6 +21,7 @@ The installer detects your platform automatically. Manual downloads are on the
 | Linux ARM 32-bit (armhf, armv7) | `yumi-linux-armhf` |
 | macOS Apple Silicon | `yumi-darwin-arm64` |
 | macOS Intel | `yumi-darwin-amd64` |
+| Windows x86_64 (experimental) | `yumi-windows-amd64.exe` |
 
 ## Usage
 
@@ -32,6 +33,10 @@ yumi --help           # all options
 
 Authentication uses your existing Claude Pro/Max subscription (OAuth). No API
 key is required; existing credentials on the machine are read, never modified.
+
+Note on Windows: the build is experimental and expects a POSIX shell (`sh`) in
+PATH for the Bash tool - install Git Bash or use WSL, as with other terminal
+coding agents.
 
 ## Verify a download
 

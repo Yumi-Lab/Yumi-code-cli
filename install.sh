@@ -10,6 +10,7 @@ ARCH=$(uname -m)
 case "$OS" in
   Linux)  os=linux ;;
   Darwin) os=darwin ;;
+  MINGW*|MSYS*|CYGWIN*) os=windows ;;
   *) echo "Unsupported OS: $OS" >&2; exit 1 ;;
 esac
 
@@ -25,6 +26,10 @@ if [ "$os" = "darwin" ] && [ "$arch" = "armhf" ]; then
 fi
 
 asset="yumi-$os-$arch"
+if [ "$os" = "windows" ]; then
+  if [ "$arch" != "amd64" ]; then echo "Unsupported platform: $OS/$ARCH" >&2; exit 1; fi
+  asset="yumi-windows-amd64.exe"
+fi
 url="https://github.com/$REPO/releases/latest/download/$asset"
 
 tmp=$(mktemp)
@@ -34,6 +39,15 @@ curl -fsSL "$url" -o "$tmp"
 chmod +x "$tmp"
 
 dest="/usr/local/bin/yumi"
+if [ "$os" = "windows" ]; then
+  dest="$HOME/bin/yumi.exe"
+  mkdir -p "$HOME/bin"
+  mv "$tmp" "$dest"
+  trap - EXIT
+  echo "Installed: $dest (experimental build - requires Git Bash or WSL)"
+  "$dest" --version
+  exit 0
+fi
 if [ -w "$(dirname "$dest")" ]; then
   mv "$tmp" "$dest"
 elif [ -t 0 ] && command -v sudo >/dev/null 2>&1; then
