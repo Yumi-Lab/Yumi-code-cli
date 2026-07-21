@@ -36,8 +36,10 @@ chmod +x "$tmp"
 dest="/usr/local/bin/yumi"
 if [ -w "$(dirname "$dest")" ]; then
   mv "$tmp" "$dest"
-elif command -v sudo >/dev/null 2>&1; then
+elif [ -t 0 ] && command -v sudo >/dev/null 2>&1; then
   echo "Installing to $dest (sudo required)"
+  sudo mv "$tmp" "$dest"
+elif command -v sudo >/dev/null 2>&1 && sudo -n true 2>/dev/null; then
   sudo mv "$tmp" "$dest"
 else
   dest="$HOME/.local/bin/yumi"
