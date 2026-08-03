@@ -38,6 +38,11 @@ Note on Windows: the build is experimental and expects a POSIX shell (`sh`) in
 PATH for the Bash tool - install Git Bash or use WSL, as with other terminal
 coding agents.
 
+## Experimental: yumi-c GodMode
+
+An experimental `yumi-c`-only build with a fifth permission mode (`godmode`) for delegating tasks too
+large for one context window is available as a separate pre-release. See [GODMODE.md](./GODMODE.md).
+
 ## Verify a download
 
 ```sh
