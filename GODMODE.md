@@ -1,8 +1,8 @@
 # yumi-c GodMode (experimental)
 
-`yumi-c` is Yumi Code's verbatim Go clone of the Claude Code CLI. **GodMode** is an experimental
-fifth permission mode — a peer of `default`/`acceptEdits`/`bypassPermissions`/`plan`/`dontAsk`/`auto` —
-for delegating tasks too large for a single context window.
+`yumi-c` is Yumi Code's terminal coding agent. **GodMode** is an experimental fifth permission mode —
+a peer of `default`/`acceptEdits`/`bypassPermissions`/`plan`/`dontAsk`/`auto` — for delegating tasks
+too large for a single context window.
 
 **Status: beta / experimental.** Not part of the stable `yumi` release line (see the main
 [README](./README.md) / `install.sh` for that). Built from a dedicated experimental branch and
