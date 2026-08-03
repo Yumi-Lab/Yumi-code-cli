@@ -1,14 +1,31 @@
 # yumi-c GodMode (experimental)
 
-`yumi-c` is Yumi Code's terminal coding agent. **GodMode** is an experimental fifth permission mode —
-a peer of `default`/`acceptEdits`/`bypassPermissions`/`plan`/`dontAsk`/`auto` — for delegating tasks
-too large for a single context window.
+`yumi-c` is Yumi Code's terminal coding agent. It runs in one of several **permission modes**, which
+control how much autonomy it has to act on your files and run commands without stopping to ask first.
+**GodMode** is a new, experimental mode added to that set, for delegating tasks too large for a single
+run to complete on its own.
 
 **Status: beta / experimental.** Not part of the stable `yumi` release line (see the main
 [README](./README.md) / `install.sh` for that). Built from a dedicated experimental branch and
 distributed here as pre-release `v0.1.1-godmode`, `yumi-c` only.
 
-## What it does
+## All permission modes
+
+Select any of these with `--permission-mode <name>` (headless) or interactively via Shift+Tab /
+`/permissions`. This describes CLI behavior only — how cautious it is before touching your files or
+running commands — not anything about what powers it internally.
+
+| Mode | Behavior |
+|---|---|
+| `default` | Safest. Read-only actions (viewing files, searching) run immediately; anything that writes, edits, or executes asks for your confirmation first, every time. |
+| `acceptEdits` | Read-only actions and file edits (write/edit) run immediately; shell commands still ask first (unless explicitly configured not to); sub-agent delegation runs immediately. |
+| `bypassPermissions` | Full autonomy — nothing asks for confirmation. Use for unattended runs you already trust. |
+| `auto` | Same full autonomy as `bypassPermissions`. |
+| `plan` | Read-only while a plan is being drafted — no file writes or command execution until you approve the plan; once approved, behaves like `default` for the rest of the run. |
+| `dontAsk` | Non-interactive safe mode: read-only actions and sub-agent delegation run immediately, everything else is refused outright rather than prompting (useful when no one is available to answer a prompt). |
+| `godmode` | Experimental — see below. Functionally the same full autonomy as `bypassPermissions`, plus the orchestrator behavior described in this document. |
+
+## What GodMode does
 
 Activating GodMode (`--permission-mode godmode`) turns the current instance into an *orchestrator*:
 its only job is to arm an autonomous coding loop for the task, then hand off and stop. It never does

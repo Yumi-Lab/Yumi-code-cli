@@ -31,8 +31,8 @@ yumi -p "your task"   # one-shot headless run
 yumi --help           # all options
 ```
 
-Authentication uses your existing Claude Pro/Max subscription (OAuth). No API
-key is required; existing credentials on the machine are read, never modified.
+Authentication uses your existing subscription (OAuth). No API key is
+required; existing credentials on the machine are read, never modified.
 
 Note on Windows: the build is experimental and expects a POSIX shell (`sh`) in
 PATH for the Bash tool - install Git Bash or use WSL, as with other terminal
